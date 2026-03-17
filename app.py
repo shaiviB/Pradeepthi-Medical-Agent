@@ -8,17 +8,17 @@ st.set_page_config(page_title="Medical AI Agent", layout="wide")
 st.title("🧠 Pradeepthi Medical AI Agent")
 
 # --- API KEY ---
-client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+client = Anthropic(api_key=st.secrets("ANTHROPIC_API_KEY"))
 
 # --- SNOWFLAKE SEARCH FUNCTION ---
 def search_documents(query):
     conn = snowflake.connector.connect(
-        user=os.getenv("SNOWFLAKE_USER"),
-        password=os.getenv("SNOWFLAKE_PASSWORD"),
-        account=os.getenv("SNOWFLAKE_ACCOUNT"),
-        warehouse=os.getenv("SNOWFLAKE_WAREHOUSE"),  # 👈 use env
-        database=os.getenv("SNOWFLAKE_DATABASE"),
-        schema=os.getenv("SNOWFLAKE_SCHEMA")
+        user=st.secrets("SNOWFLAKE_USER"),
+        password=st.secrets("SNOWFLAKE_PASSWORD"),
+        account=st.secrets("SNOWFLAKE_ACCOUNT"),
+        warehouse=st.secrets("SNOWFLAKE_WAREHOUSE"),  # 👈 use env
+        database=st.secrets("SNOWFLAKE_DATABASE"),
+        schema=st.secrets("SNOWFLAKE_SCHEMA")
     )
 
     cursor = conn.cursor()
