@@ -60,7 +60,17 @@ def ask_agent(question):
     ])
 
     print("🧠 Sending to Claude...\n")
-
+try:
+    test = client.messages.create(
+        model="claude-sonnet-4-20250514",
+        max_tokens=50,
+        messages=[{"role": "user", "content": "Say hello"}]
+    )
+    st.success("Claude connected!")
+    st.write(test.content[0].text)
+except Exception as e:
+    st.error(f"Claude error: {e}")
+#--
     response = client.messages.create(
         model="claude-sonnet-4-20250514",
         max_tokens=1000,
@@ -91,7 +101,7 @@ If unsure, say you don't know.
 
     print("\n--- ✅ ANSWER ---\n")
     print(response.content[0].text)
-
+#--
 
 # -----------------------------
 # RUN LOOP
